@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-lg-6">
+        <h2>{{ accion }} Estudiante</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4">
+        <form [formGroup]="myForm" autocomplete="off">
+            <div class="col-lg-12">
+                <mat-form-field class="example-container" [style.fontSize.px]=12>
+                    <mat-placeholder>Cedula estudiante</mat-placeholder>
+                    <input matInput type="search" formControlName="cedula">
+                    <button mat-button matSuffix mat-stroked-button aria-label="search" (click)="buscarEstudiante()">
+                      <mat-icon>search</mat-icon>
+                  </button>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-12">
+                <mat-form-field class="example-container" [style.fontSize.px]=12>
+                    <mat-label>Nombre Estudiante</mat-label>
+                    <input matInput [readonly]="true" formControlName="nombreEstudiante">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-12">
+                <mat-form-field class="example-container" [style.fontSize.px]=12>
+                    <mat-label>Curso</mat-label>
+                    <input matInput [readonly]="true" formControlName="curso">
+                </mat-form-field>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="col-lg-12">
+                <mat-form-field class="example-container" [style.fontSize.px]=12>
+                    <mat-label>Nombre proyecto</mat-label>
+                    <input matInput [readonly]="true" formControlName="nombreProyecto">
+                  </mat-form-field>
+                  <div *ngIf="myForm.get('nombreProyecto').hasError('required') && myForm.get('nombreProyecto').touched" style="margin-top: -20px;">
+                      <span class="mda-form-msg">Este campo es <strong>requerido</strong></span>
+                  </div>
+                  <div *ngIf="myForm.get('nombreProyecto').hasError('maxlength') && myForm.get('nombreProyecto').touched" style="margin-top: -20px;">
+                    <span class="mda-form-msg">El campo debe tener como maximo <strong> 20 caracteres</strong></span>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <mat-form-field class="example-container" [style.fontSize.px]=12>
+                    <mat-label>Descripcion</mat-label>
+                    <input matInput [readonly]="true" formControlName="descripcionProyecto">
+                  </mat-form-field>
+                  <div *ngIf="myForm.get('descripcionProyecto').hasError('required') && myForm.get('descripcionProyecto').touched" style="margin-top: -20px;">
+                    <span class="mda-form-msg">Este campo es <strong>requerido</strong></span>
+                </div>
+                <div *ngIf="myForm.get('descripcionProyecto').hasError('email') && myForm.get('descripcionProyecto').touched" style="margin-top: -20px;">
+                    <span class="mda-form-msg">Este campo es <strong>requerido</strong></span>
+                </div>
+            </div>
+            
+            <br>
+            <div class="col-lg-12">
+                <button class="btn btn-success btn-lg float-right" [disabled]="myForm.invalid"
+                type="button" style="margin-left: 10px;" (click)="guardarEstudianteProyecto()">Aceptar</button>
+                <button class="btn btn-secondary btn-lg float-right" routerLink="/"
+                    (click)="changeMessage()"
+                        type="button">Cancelar</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-4 offset-lg-2">
+        <img src="./assets/img/proyectos_home.png" alt="">
+    </div>
+</div>
