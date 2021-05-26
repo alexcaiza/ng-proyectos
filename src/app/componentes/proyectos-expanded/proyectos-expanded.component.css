@@ -7,24 +7,21 @@ table {
   }
   
   tr.example-element-row:not(.example-expanded-row):hover {
-    background: #777;
+    background: #d8d6d6;
   }
   
   tr.example-element-row:not(.example-expanded-row):active {
     background: #efefef;
   }
   
-  
   .example-element-row td {
     border-bottom-width: 0;
   }
-  
   
   .example-element-detail {
     overflow: hidden;
     display: flex;
   }
-  
   
   .example-element-diagram {
     min-width: 80px;
@@ -35,36 +32,29 @@ table {
     height: 104px;
   }
   
-  
   .example-element-symbol {
     font-weight: bold;
     font-size: 40px;
     line-height: normal;
-  }
-  
+  }  
   
   .example-element-description {
     padding: 16px;
   }
   
-  
   .example-element-description-attribution {
     opacity: 0.5;
   }
   
-  
   .inner-table {
     width: 100%;
   }
-  
   
   .inner-table mat-form-field {
     margin-top: 15px;
     width: 100%;
   }
   
-  
-
   .basic-container {
     padding: 30px;
   }
@@ -72,5 +62,9 @@ table {
   .version-info {
     font-size: 8pt;
     float: right;
+  }
+
+  .tbl_header_proyectos {
+    color: #a50505;
   }
   

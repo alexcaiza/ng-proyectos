@@ -10,3 +10,32 @@ simple-snack-bar span {
 button:focus {
     outline: none;
 }
+
+.success-dialog {
+    color: #080808 !important;
+    background-color: #7bcf64 !important;    
+}
+
+.info-dialog {
+    color: white !important;
+    background-color: #cee0fc !important;    
+}
+
+.error-dialog {    
+    color: white !important;
+    background-color: red !important;    
+}
+
+.mat-snack-bar-container {
+    min-width: 700px !important;
+    font-size: 11px !important;
+ }
+
+ .mat-simple-snackbar {
+    font-size: 12px !important;
+ }
+
+ simple-snack-bar span {
+    margin-left: 1px !important;
+    text-align: left;
+}

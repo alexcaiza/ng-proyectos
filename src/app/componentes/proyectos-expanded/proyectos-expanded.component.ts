@@ -8,6 +8,8 @@ import { ProyectosService } from 'src/app/services/proyectos.service';
 import { Proyecto } from 'src/app/models/proyecto';
 import { SiblingService } from 'src/app/services/sibling.service';
 import { timer } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { GlobalConstants } from 'src/app/commons/global-constants';
 
 @Component({
 	selector: 'app-proyectos-expanded',
@@ -30,9 +32,6 @@ export class ProyectosExpandedComponent implements OnInit {
 
 	grupos: Grupo[] = [];
 
-	dataSource: MatTableDataSource<User>;
-	usersData: User[] = [];
-
 	dataSource2: MatTableDataSource<Grupo>;
 	gruposData: Grupo[] = [];
 
@@ -42,14 +41,17 @@ export class ProyectosExpandedComponent implements OnInit {
 		{
 			field: "nombre",
 			name: "Grupo",
+			display: true
 		},
 		{
 			field: "cantidadMaxima",
 			name: "Cantidad maxima de estudiantes",
+			display: true
 		},
 		{
 			field: "cantidadEstudiantes",
 			name: "Estudiantes registrados",
+			display: true
 		},
 
 	];
@@ -79,6 +81,7 @@ export class ProyectosExpandedComponent implements OnInit {
 		private cd: ChangeDetectorRef,
 		private proyectosService: ProyectosService,
 		private siblingService: SiblingService,
+		private snackBar: MatSnackBar,
 	) { 
 		/*
 		this.siblingService.callFindEstudianteMeetings.subscribe((data) => {
@@ -89,27 +92,26 @@ export class ProyectosExpandedComponent implements OnInit {
 			timer(500).subscribe(x => { 
 				console.log('Method: siblingService.messageSource$.subscribe()');
 				this.findGrupos();
-			  });
-            
+				//this.resetTable();
+			  });            
         });
+	}
 
+	resetTable() {
+		console.log('Method: resetTable()');
+		let emp = [];
+		this.dataSource2 = new MatTableDataSource<Grupo>(emp);
+		if (this.dataSource2 !== null && this.dataSource2 !== undefined) {
+			console.log('dataSource2 undefined');
+			this.dataSource2.data = [];
+		}
+		//this.dataSource = new MatTableDataSource<Element>(this.newSource);
+		//this.cd.detectChanges();
+		this.findGrupos();
 	}
 
 	ngOnInit() {
-
-		console.log('Method: ngOnInit()');
-
-		USERS.forEach(user => {
-			if (user.addresses && Array.isArray(user.addresses) && user.addresses.length) {
-				this.usersData = [...this.usersData, { ...user, addresses: new MatTableDataSource(user.addresses) }];
-			} else {
-				this.usersData = [...this.usersData, user];
-			}
-		});
-		this.dataSource = new MatTableDataSource(this.usersData);
-		this.dataSource.sort = this.sort;
-
-		//this.findGrupos();				
+		console.log('Method: ngOnInit()');		
 	}
 
 	private findGrupos() {
@@ -145,11 +147,21 @@ export class ProyectosExpandedComponent implements OnInit {
 					this.dataSource2 = new MatTableDataSource(this.gruposData);
 					this.dataSource2.sort = this.sort;
 
+					//this.dataSource2.data = this.gruposData;
+
+					//this.cd.detectChanges();
+
 				} else {
-					//this.alertService.error(response.message, AppMessages.optionsMessages);
+					this.snackBar.open(response?.message, '', {
+						duration: GlobalConstants.timeMessages,
+						panelClass: "error-dialog"
+					});
 				}
 			} else {
-				//this.alertService.error("A ocurrido un problema al registar los datos de la reunion", AppMessages.optionsMessages);
+				this.snackBar.open(response?.message, '', {
+					duration: GlobalConstants.timeMessages,
+					panelClass: "error-dialog"
+				});
 			}
 		}, (err) => {
 			console.log(err);
@@ -169,78 +181,5 @@ export class ProyectosExpandedComponent implements OnInit {
 
 }
 
-export interface User {
-	name: string;
-	email: string;
-	phone: string;
-	cantidadMaxima: number;
-	cantidadEstudiantes: number;
-	addresses?: Address[] | MatTableDataSource<Address>;
 
-}
 
-export class Address {
-	street: string;
-	zipCode: string;
-	city: string;
-}
-
-export class UserDataSource {
-	name: string;
-	email: string;
-	phone: string;
-	addresses?: MatTableDataSource<Address>;
-}
-
-const USERS: User[] = [
-	{
-		name: "Grupo1",
-		email: "mason@test.com",
-		phone: "9864785214",
-		cantidadMaxima: 20,
-		cantidadEstudiantes: 0,
-		addresses: [
-			{
-				street: "Contabilidad 1.1",
-				zipCode: "78542",
-				city: "Kansas"
-			},
-			{
-				street: "Contabilidad 1.2",
-				zipCode: "78554",
-				city: "Texas"
-			},
-			{
-				street: "Contabilidad 1.3",
-				zipCode: "78554",
-				city: "Texas"
-			}
-		]
-	},
-	{
-		name: "Grupo 2",
-		email: "eugene@test.com",
-		phone: "8786541234",
-		cantidadMaxima: 25,
-		cantidadEstudiantes: 0,
-	},
-	{
-		name: "Grupo 3",
-		email: "jason@test.com",
-		phone: "7856452187",
-		cantidadMaxima: 30,
-		cantidadEstudiantes: 0,
-		addresses: [
-			{
-				street: "Street 5",
-				zipCode: "23547",
-				city: "Utah"
-			},
-			{
-				street: "Street 5",
-				zipCode: "23547",
-				city: "Ohio"
-			}
-		]
-	}
-];

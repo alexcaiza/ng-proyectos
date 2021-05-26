@@ -10,6 +10,8 @@ import { ProyectosService } from 'src/app/services/proyectos.service';
 import { Proyecto } from 'src/app/models/proyecto';
 import { SiblingService } from 'src/app/services/sibling.service';
 
+import { GlobalConstants } from 'src/app/commons/global-constants';
+
 
 @Component({
 	selector: 'app-proyectos-estudiante-add-edit',
@@ -81,6 +83,14 @@ export class ProyectosEstudianteAddEditComponent implements OnInit {
 
 		let cedula = this.myForm.get('cedula').value;
 
+		if (cedula === '') {
+			this.snackBar.open('Ingrese la cédula para realizar la búsqueda del estudiante', 'ERROR', {
+				duration: GlobalConstants.timeMessages,
+				panelClass: "error-dialog"
+			});
+			return;
+		}
+
 		console.log(cedula);
 
 		let objParams: any = {};
@@ -103,7 +113,8 @@ export class ProyectosEstudianteAddEditComponent implements OnInit {
 					// Cierra el modal
 					this.estudiante = response.estudiante;
 
-					console.log(`Estudiante: ${this.estudiante}`);
+					console.log(`Estudiante:`);
+					console.log(this.estudiante);
 
 					if (this.estudiante !== undefined) {
 
@@ -113,16 +124,22 @@ export class ProyectosEstudianteAddEditComponent implements OnInit {
 							nombreEstudiante: est.nombrecompleto,
 							curso: est.curso
 						});
+					} else {
+						this.snackBar.open(response.message, '', {
+							duration: GlobalConstants.timeMessages,
+							panelClass: "error-dialog"
+						});
 					}
 
 				} else {
-					this.snackBar.open(response.message, '', {
-						duration: 3000
+					this.snackBar.open(response.message, 'ERROR', {
+						duration: GlobalConstants.timeMessages,
+						panelClass: "error-dialog"
 					});
 				}
 			} else {
 				this.snackBar.open('Error al realizar la consulta del estudiante', '', {
-					duration: 3000
+					duration: GlobalConstants.timeMessages
 				});
 			}
 		}, (err) => {
@@ -186,18 +203,21 @@ export class ProyectosEstudianteAddEditComponent implements OnInit {
 								console.log(response);
 								if (response != undefined) {
 									if (response.error === 0) {
-										this.snackBar.open(response.message, '', {
-											duration: 10000
+										this.snackBar.open(response.message, 'OK', {
+											duration: GlobalConstants.timeMessages,
+											panelClass: "success-dialog"
 										});									
 									} else {
-										this.snackBar.open(response.message, '', {
-											duration: 10000
+										this.snackBar.open(response.message, 'ERROR', {
+											duration: GlobalConstants.timeMessages,
+											panelClass: "error-dialog"
 										});
 									}
 									//this.changeMessage();
 								} else {
-									this.snackBar.open('Error al realizar la consulta del estudiante', '', {
-										duration: 10000
+									this.snackBar.open('Error al realizar la consulta del estudiante', 'ERROR', {
+										duration: GlobalConstants.timeMessages,
+										panelClass: "error-dialog"
 									});
 
 								}
@@ -208,10 +228,11 @@ export class ProyectosEstudianteAddEditComponent implements OnInit {
 
 						} else {
 							this.snackBar.open(
-								`El estudiante: ${this.estudiante.nombrecompleto} ya esta registrado en el proyecto ${this.proyecto.nombre}`,
+								`El estudiante: ${this.estudiante.nombrecompleto} ya esta registrado en el proyecto: ${this.proyecto.nombre}`,
 								'', {
-								duration: 10000
-							}
+									duration: GlobalConstants.timeMessages,
+									panelClass: "error-dialog"
+								}
 							);
 							
 						}
@@ -219,8 +240,9 @@ export class ProyectosEstudianteAddEditComponent implements OnInit {
 						this.snackBar.open(
 							`${dataCountEstudiante.message}`,
 							'', {
-							duration: 10000
-						}
+								duration: GlobalConstants.timeMessages,
+								panelClass: "error-dialog"
+							}
 						);
 						
 					}
@@ -233,13 +255,15 @@ export class ProyectosEstudianteAddEditComponent implements OnInit {
 			}
 			else {
 				this.snackBar.open('Los datos del proyecto seleccionado no son validos!', '', {
-					duration: 10000
+					duration: GlobalConstants.timeMessages,
+					panelClass: "error-dialog"
 				});
 			}
 
 		} else {
 			this.snackBar.open('Ingrese la cedula del estudiante y realize la busqueda!', '', {
-				duration: 3000
+				duration: GlobalConstants.timeMessages,
+				panelClass: "error-dialog"
 			});
 		}
 
@@ -252,7 +276,7 @@ export class ProyectosEstudianteAddEditComponent implements OnInit {
 	agregarEmpleado(empleado: Empleado) {
 		this.empleadoService.agregarEmpleado(empleado);
 		this.snackBar.open('El empleado fue registrado con exito!', '', {
-			duration: 3000
+			duration: GlobalConstants.timeMessages
 		});
 		this.route.navigate(['/']);
 	}
@@ -260,7 +284,7 @@ export class ProyectosEstudianteAddEditComponent implements OnInit {
 	editarEmpleado(empleado: Empleado) {
 		this.empleadoService.editEmpleado(empleado, this.idEmpleado);
 		this.snackBar.open('El empleado fue actualizado con exito!', '', {
-			duration: 3000
+			duration: GlobalConstants.timeMessages
 		});
 		this.route.navigate(['/']);
 	}
@@ -313,7 +337,8 @@ export class ProyectosEstudianteAddEditComponent implements OnInit {
 
 				} else {
 					this.snackBar.open(response.message, '', {
-						duration: 3000
+						duration: GlobalConstants.timeMessages,
+						panelClass: "error-dialog"
 					});
 				}
 			} else {
