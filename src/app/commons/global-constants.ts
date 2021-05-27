@@ -4,4 +4,7 @@ export class GlobalConstants {
 
     public static timeMessages: number = 10000;
 
+    //public static baseUrl: string = "http://localhost/ng-proyectos/backend";
+    public static baseUrl: string = "http://201.159.223.24/ng-proyectos/backend";
+
 }

@@ -5,6 +5,7 @@ import { EmpleadosListComponent } from './componentes/empleados-list/empleados-l
 import { ProyectosEstudianteAddEditComponent } from './componentes/proyectos-estudiante-add-edit/proyectos-estudiante-add-edit.component';
 import { ProyectosExpandedComponent } from './componentes/proyectos-expanded/proyectos-expanded.component';
 import { ProyectosGroupComponent } from './componentes/proyectos-group/proyectos-group.component';
+import { ReporteComponent } from './componentes/reporte/reporte.component';
 import { TableExpandedComponent } from './componentes/table-expanded/table-expanded.component';
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: '', component: ProyectosExpandedComponent },
   //{ path: 'pexpanded', component: ProyectosExpandedComponent },  
   { path: 'register/:codigoProyecto', component: ProyectosEstudianteAddEditComponent },  
+  { path: 'reporte', component: ReporteComponent },
   //{ path: 'texpanded', component: TableExpandedComponent },  
   { path: '**', component: ProyectosExpandedComponent },
 ];

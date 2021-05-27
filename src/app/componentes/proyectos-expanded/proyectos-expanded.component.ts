@@ -133,6 +133,8 @@ export class ProyectosExpandedComponent implements OnInit {
 					// Cierra el modal
 					this.grupos = response.grupos;
 
+					this.gruposData = [];
+
 					this.grupos.forEach(grupo => {
 						if (grupo.proyectos && Array.isArray(grupo.proyectos) && grupo.proyectos.length) {
 							this.gruposData = [...this.gruposData, { ...grupo, proyectos: new MatTableDataSource(grupo.proyectos)}];

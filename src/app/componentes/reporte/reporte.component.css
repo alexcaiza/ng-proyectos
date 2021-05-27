@@ -1,0 +1,17 @@
+table {
+    width: 100%;
+  }
+
+  tr.mat-footer-row {
+    border: 1px solid #e7e7e7;
+    height: 25px !important;
+}
+
+.table-row {
+    height: 25px !important;
+    
+  }
+
+  .mat-cell {
+    font-size: 11px !important;
+}

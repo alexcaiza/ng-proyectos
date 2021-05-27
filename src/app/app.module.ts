@@ -21,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProyectosEstudianteAddEditComponent } from './componentes/proyectos-estudiante-add-edit/proyectos-estudiante-add-edit.component';
 
 import { SiblingService } from './services/sibling.service';
+import { ReporteComponent } from './componentes/reporte/reporte.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SiblingService } from './services/sibling.service';
     NavbarComponent,
     ProyectosExpandedComponent,
     TableExpandedComponent,
-    ProyectosEstudianteAddEditComponent
+    ProyectosEstudianteAddEditComponent,
+    ReporteComponent
   ],
   imports: [
     BrowserModule,

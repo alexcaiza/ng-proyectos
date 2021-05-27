@@ -227,12 +227,35 @@ export class ProyectosEstudianteAddEditComponent implements OnInit {
 							);
 
 						} else {
-							this.snackBar.open(
-								`El estudiante: ${this.estudiante.nombrecompleto} ya esta registrado en el proyecto: ${this.proyecto.nombre}`,
-								'', {
-									duration: GlobalConstants.timeMessages,
-									panelClass: "error-dialog"
+							
+							this.proyectosService.findProyectoByEstudiante(objParams).subscribe(response => {
+								console.log('response findProyectoById()');
+								console.log(response);
+								if (response != undefined) {
+									if (response.error === 0) {
+										// Cierra el modal
+										let proyectoEst = response.proyecto;
+					
+										this.snackBar.open(
+											`El estudiante: ${this.estudiante.nombrecompleto} ya esta registrado en el proyecto: ${proyectoEst.nombre}`,
+											'', {
+												duration: GlobalConstants.timeMessages,
+												panelClass: "error-dialog"
+											}
+										);
+					
+									} else {
+										this.snackBar.open(response.message, '', {
+											duration: GlobalConstants.timeMessages,
+											panelClass: "error-dialog"
+										});
+									}
+								} else {
+									//this.alertService.error("A ocurrido un problema al registar los datos de la reunion", AppMessages.optionsMessages);
 								}
+							}, (err) => {
+								console.log(err);
+							}
 							);
 							
 						}

@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { Grupo } from '../models/grupo';
+import { GlobalConstants } from '../commons/global-constants';
 
 @Injectable({
 	providedIn: 'root'
@@ -17,7 +18,9 @@ export class ProyectosService {
 	redirectUrl: string;
 
 	//baseUrl: string = "http://localhost/ng-proyectos/backend";
-    baseUrl: string = "http://201.159.223.24/ng-proyectos/backend";
+    //baseUrl: string = "http://201.159.223.24/ng-proyectos/backend";
+
+    baseUrl: string = GlobalConstants.baseUrl;
     
 	constructor(private httpClient: HttpClient) { }
 
@@ -47,6 +50,20 @@ export class ProyectosService {
         return this.httpClient.post(url, params, this.httpOptions).pipe(
             tap(_ => console.log(`params=${params}`)),
             catchError(this.handleError<any>('countProyectoEstudiante')));
+    }
+
+    public findProyectoByEstudiante(params): Observable<any> {
+        const url = `${this.baseUrl}/findProyectoByEstudiante.php`;
+        return this.httpClient.post(url, params, this.httpOptions).pipe(
+            tap(_ => console.log(`params=${params}`)),
+            catchError(this.handleError<any>('findProyectoByEstudiante')));
+    }
+
+    public findReporte(params): Observable<any> {
+        const url = `${this.baseUrl}/findReporte.php`;
+        return this.httpClient.post(url, params, this.httpOptions).pipe(
+            tap(_ => console.log(`params=${params}`)),
+            catchError(this.handleError<any>('findReporte')));
     }
 
     public async countProyectoEstudiantePromise(params) : Promise<any> {
